@@ -19,6 +19,12 @@ class MainScene extends Phaser.Scene {
     create()
     {
         this.add.image(400, 300, 'taro');
+        const velocity = 200; // 速度を設定
+        const angle = Phaser.Math.DegToRad(45); // 45度をラジアンに変換
+        
+        // X方向の速度とY方向の速度を計算し、taroに設定する
+        this.taro.setVelocityX(velocity * Math.cos(angle));
+        this.taro.setVelocityY(velocity * Math.sin(angle));
     }
 
 }
