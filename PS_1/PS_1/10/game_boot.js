@@ -3,7 +3,7 @@ let game;
 
 // ゲーム画面サイズ
 const D_WIDTH = 800;
-const D_HEIGHT = 600;
+const D_HEIGHT = 450;
 
 // ページ読み込み完了時に実行
 window.onload = function() {
