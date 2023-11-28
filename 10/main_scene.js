@@ -16,16 +16,21 @@ class MainScene extends Phaser.Scene {
         this.load.image('background', 'assets/background.png');
     }
 
-    create()
-    {
-        this.add.image(400, 300, 'taro');
-        const velocity = 200; // 速度を設定
-        const angle = Phaser.Math.DegToRad(45); // 45度をラジアンに変換
+    create() {
+        this.taro = this.physics.add.image(200, 300, 'taro');
         
-        // X方向の速度とY方向の速度を計算し、taroに設定する
-        this.taro.setVelocityX(velocity * Math.cos(angle));
-        this.taro.setVelocityY(velocity * Math.sin(angle));
+        const velocity = 200;
+        const angle = Phaser.Math.DegToRad(45);
+        
+        // ゲームのフレームごとの更新
+        this.update = () => {
+            this.taro.setVelocity(velocity * Math.cos(angle), velocity * Math.sin(angle));
+        };
     }
 
+    update() {
+        // 毎フレームごとの更新関数を実行
+        this.update();
+    }
 }
 
