@@ -13,7 +13,7 @@ class MainScene extends Phaser.Scene {
     preload()
     {
         this.load.image('taro', 'assets/taro.png');
-        this.load.image('jiro', 'assets/jiro.png');
+        //this.load.image('jiro', 'assets/jiro.png');
         this.load.image('hanako', 'assets/hanako.png');
         this.load.image('background', 'assets/background.png');
     }
@@ -25,8 +25,8 @@ class MainScene extends Phaser.Scene {
         this.taro = this.physics.add.image(200, 300, 'taro').setDepth(2);
         this.taro.angle = 0
 
-        this.jiro = this.physics.add.image(300, 200, 'jiro').setDepth(2);
-        this.jiro.angle = 0
+        // this.jiro = this.physics.add.image(300, 200, 'jiro').setDepth(2);
+        // this.jiro.angle = 0
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -35,15 +35,28 @@ class MainScene extends Phaser.Scene {
 
         this.text = this.add.text(100, 50, '');
 
-        this.input.keyboard.on('keydown-W', function (event) {
-            const x = Phaser.Math.Between(100, 400); // X座標を100から400の範囲でランダムに生成
-            const y = 100; // Y座標を100に固定
+        // this.input.keyboard.on('keydown-W', function (event) {
+        //     const x = Phaser.Math.Between(100, 400); // X座標を100から400の範囲でランダムに生成
+        //     const y = 100; // Y座標を100に固定
 
-            const hanako = this.physics.add.image(x, y, 'hanako');
-            hanako.setScale(0.2);
-        }, this);
+        //     const hanako = this.physics.add.image(x, y, 'hanako');
+        //     hanako.setScale(0.2);
+        // }, this);
 
+        this.hanako = this.physics.add.image(200, 100, 'hanako').setScale(0.2);
+        this.time.addEvent({
+            delay: 3000,
+            loop: true,
+            callback: () => {
+                const x = Phaser.Math.Between(200, 400);
+                const y = Phaser.Math.Between(100, 200);
+                this.hanako.setPosition(x, y);
+            }
+        });
 
+        // 他の設定...
+        this.physics.add.collider(this.taro, this.hanako, this.handleCollision, null, this);
+        
         //キーボード入力用
         this.input.keyboard.on('keydown-A', () => {
             this.text.setText('Hello!').setPosition(100, 50);
@@ -56,6 +69,10 @@ class MainScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-D', () => {
             this.text.setText('');
         });
+    }
+    handleCollision(taro, hanako) {
+        const message = this.add.text(100, 150, '痛い！', { fontFamily: 'Meiryo', fontSize: '24px', color: '#ff0000' });
+        // 何らかの処理...
     }
 
     update(time, delta) {
@@ -73,24 +90,33 @@ class MainScene extends Phaser.Scene {
         //}
 
          // taroの移動
-        if (this.cursors.right.isDown) {
+         if (this.cursors.right.isDown) {
             this.taro.setVelocityX(50); // 右に50動く
         } else if (this.cursors.left.isDown) {
             this.taro.setVelocityX(-50); // 左に50動く
         } else {
-            this.taro.setVelocityX(0); // キーが離されたら停止する
+            this.taro.setVelocityX(0); // 左右キーが離されたら停止する
         }
 
-        // jiroの移動
-        if (this.cursors.right.isDown) {
-            this.jiro.setVelocityX(-50); // 左に50動く
-        } else if (this.cursors.left.isDown) {
-            this.jiro.setVelocityX(50); // 右に50動く
+        if (this.cursors.down.isDown) {
+            this.taro.setVelocityY(50); // 下に50動く
+        } else if (this.cursors.up.isDown) {
+            this.taro.setVelocityY(-50); // 上に50動く
         } else {
-            this.jiro.setVelocityX(0); // キーが離されたら停止する
+            this.taro.setVelocityY(0); // 上下キーが離されたら停止する
         }
 
+
+        // // jiroの移動
+        // if (this.cursors.right.isDown) {
+        //     this.jiro.setVelocityX(-50); // 左に50動く
+        // } else if (this.cursors.left.isDown) {
+        //     this.jiro.setVelocityX(50); // 右に50動く
+        // } else {
+        //     this.jiro.setVelocityX(0); // キーが離されたら停止する
+        // }
         
     }
+    
 }
 
