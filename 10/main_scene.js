@@ -56,7 +56,7 @@ class MainScene extends Phaser.Scene {
 
         // 他の設定...
         this.physics.add.collider(this.taro, this.hanako, this.handleCollision, null, this);
-        
+
         //キーボード入力用
         this.input.keyboard.on('keydown-A', () => {
             this.text.setText('Hello!').setPosition(100, 50);
@@ -72,7 +72,8 @@ class MainScene extends Phaser.Scene {
     }
     handleCollision(taro, hanako) {
         const message = this.add.text(100, 150, '痛い！', { fontFamily: 'Meiryo', fontSize: '24px', color: '#ff0000' });
-        // 何らかの処理...
+        hanako.disableBody(true, true); // hanakoオブジェクトを無効化して消す
+        this.scene.pause(); // シーンの更新を停止する
     }
 
     update(time, delta) {
