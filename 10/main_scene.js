@@ -20,13 +20,30 @@ class MainScene extends Phaser.Scene {
     create() {
         this.background = this.add.image(0, 0, 'background').setOrigin(0);
 
-        this.taro = this.physics.add.image(200, 300, 'taro');
+        this.taro = this.physics.add.image(200, 300, 'taro').setDepth(2);
         this.taro.angle = 0
 
-        this.jiro = this.physics.add.image(300, 200, 'jiro');
+        this.jiro = this.physics.add.image(300, 200, 'jiro').setDepth(2);
         this.jiro.angle = 0
 
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.background = this.add.image(0, 0, 'background').setOrigin(0);
+        this.add.text(600, 400, 'MyWorld');
+
+        this.text = this.add.text(100, 50, '');
+
+        this.input.keyboard.on('keydown-A', () => {
+            this.text.setText('Hello!').setPosition(100, 50);
+        });
+
+        this.input.keyboard.on('keydown-S', () => {
+            this.text.setText('Hey!').setPosition(100, 50);
+        });
+
+        this.input.keyboard.on('keydown-D', () => {
+            this.text.setText('');
+        });
     }
 
     update(time, delta) {
@@ -60,6 +77,8 @@ class MainScene extends Phaser.Scene {
         } else {
             this.jiro.setVelocityX(0); // キーが離されたら停止する
         }
+
+        
     }
 }
 
