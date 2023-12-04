@@ -14,10 +14,12 @@ class MainScene extends Phaser.Scene {
     {
         this.load.image('taro', 'assets/taro.png');
         this.load.image('jiro', 'assets/jiro.png');
+        this.load.image('hanako', 'assets/hanako.png');
         this.load.image('background', 'assets/background.png');
     }
 
     create() {
+
         this.background = this.add.image(0, 0, 'background').setOrigin(0);
 
         this.taro = this.physics.add.image(200, 300, 'taro').setDepth(2);
@@ -33,6 +35,16 @@ class MainScene extends Phaser.Scene {
 
         this.text = this.add.text(100, 50, '');
 
+        this.input.keyboard.on('keydown-W', function (event) {
+            const x = Phaser.Math.Between(100, 400); // X座標を100から400の範囲でランダムに生成
+            const y = 100; // Y座標を100に固定
+
+            const hanako = this.physics.add.image(x, y, 'hanako');
+            hanako.setScale(0.2);
+        }, this);
+
+
+        //キーボード入力用
         this.input.keyboard.on('keydown-A', () => {
             this.text.setText('Hello!').setPosition(100, 50);
         });
