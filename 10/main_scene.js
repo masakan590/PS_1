@@ -13,6 +13,7 @@ class MainScene extends Phaser.Scene {
     preload()
     {
         this.load.image('taro', 'assets/taro.png');
+        this.load.image('jori', 'assets/jiro.png');
         this.load.image('background', 'assets/background.png');
     }
 
@@ -21,6 +22,9 @@ class MainScene extends Phaser.Scene {
 
         this.taro = this.physics.add.image(200, 300, 'taro');
         this.taro.angle = 0
+
+        this.jiro = this.physics.add.image(300, 200, 'jiro');
+        this,jiro.angle = 0
     }
 
     update(time, delta) {
